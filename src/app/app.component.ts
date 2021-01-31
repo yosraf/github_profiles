@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from './service/github.service';
 import { Profile } from './model/Profile';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Profile } from './model/Profile';
 export class AppComponent implements OnInit{
   title = 'Github profiles';
   profile :Profile | undefined;
+  profileName = new FormControl();
   constructor(private service:GithubService){
 
   }
@@ -18,7 +20,10 @@ export class AppComponent implements OnInit{
        this.profile = res;
     })
   }
+  search(){
+    let name = this.profileName.value;
+    this.getUserProfile(name);
+  }
   ngOnInit(): void {
-    this.getUserProfile("yosraf")
   } 
 }
